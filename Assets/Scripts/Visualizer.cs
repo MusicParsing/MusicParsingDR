@@ -9,11 +9,7 @@ public class Visualizer : MonoBehaviour
     SpectrumBar.BarType barType;
     int barCount;
 	
-	void start(){
-		rb=GetComponent<Rigidbody>();
-	}
-	
-    void Update ()
+	void Update ()
     {
         var spectrum = GetComponent<AudioSpectrum>();
 
