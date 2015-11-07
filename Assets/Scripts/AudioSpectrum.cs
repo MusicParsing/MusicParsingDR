@@ -41,6 +41,7 @@ public class AudioSpectrum : MonoBehaviour
     public BandType bandType = BandType.TenBand;
     public float fallSpeed = 0.08f; //inital value was 0.08f
     public float sensibility = 8.0f;
+	public int counter = 0; //defined
     #endregion
 
     #region Private variables
@@ -48,6 +49,7 @@ public class AudioSpectrum : MonoBehaviour
     float[] levels;
     float[] peakLevels;
     float[] meanLevels;
+	float[] allpeaks;
     #endregion
 
     #region Public property
@@ -103,6 +105,9 @@ public class AudioSpectrum : MonoBehaviour
         var falldown = fallSpeed * Time.deltaTime;
         var filter = Mathf.Exp (-sensibility * Time.deltaTime);
 
+		//var file=File.CreateText("C:\\Users\\pc\\Desktop\\log.txt");
+		//file.WriteLine("Peak Levels:");
+		int t=0;
         for (var bi = 0; bi < levels.Length; bi++) {
             int imin = FrequencyToSpectrumIndex (middlefrequencies [bi] / bandwidth);
             int imax = FrequencyToSpectrumIndex (middlefrequencies [bi] * bandwidth);
@@ -113,10 +118,17 @@ public class AudioSpectrum : MonoBehaviour
             }
 
             levels [bi] = bandMax;
-			Debug.Log(levels[bi]);
+			
             peakLevels [bi] = Mathf.Max (peakLevels [bi] - falldown, bandMax);
+			allpeaks[counter] = peakLevels[bi];
+			counter++;
+			Debug.Log(allpeaks.Length);
             meanLevels [bi] = bandMax - (bandMax - meanLevels [bi]) * filter;
+			//t=t+23;
+			//file.WriteLine("Level:"+peakLevels[bi]+"\t Time:"+ t);
+			
         }
+		//file.close();
     }
     #endregion
 }
