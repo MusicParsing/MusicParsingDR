@@ -3,7 +3,7 @@
 // https://github.com/keijiro/unity-audio-spectrum
 using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class AudioSpectrum : MonoBehaviour
 {
     #region Band type definition
@@ -41,7 +41,6 @@ public class AudioSpectrum : MonoBehaviour
     public BandType bandType = BandType.TenBand;
     public float fallSpeed = 0.08f; //inital value was 0.08f
     public float sensibility = 8.0f;
-	public int counter = 0; //defined
     #endregion
 
     #region Private variables
@@ -49,7 +48,7 @@ public class AudioSpectrum : MonoBehaviour
     float[] levels;
     float[] peakLevels;
     float[] meanLevels;
-	float[] allpeaks;
+	List<float> allpeaks = new List<float> ();
     #endregion
 
     #region Public property
@@ -120,9 +119,8 @@ public class AudioSpectrum : MonoBehaviour
             levels [bi] = bandMax;
 			
             peakLevels [bi] = Mathf.Max (peakLevels [bi] - falldown, bandMax);
-			allpeaks[counter] = peakLevels[bi];
-			counter++;
-			Debug.Log(allpeaks.Length);
+			allpeaks.Add(peakLevels[bi]);
+			Debug.Log(allpeaks.Count);
             meanLevels [bi] = bandMax - (bandMax - meanLevels [bi]) * filter;
 			//t=t+23;
 			//file.WriteLine("Level:"+peakLevels[bi]+"\t Time:"+ t);
