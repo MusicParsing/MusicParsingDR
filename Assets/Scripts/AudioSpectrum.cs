@@ -43,7 +43,9 @@ public class AudioSpectrum : MonoBehaviour
     float[] levels;
     float[] peakLevels;
     float[] meanLevels;
+
 	List<float> allPeaks = new List<float> ();
+	
     #endregion
 
     #region Public property
