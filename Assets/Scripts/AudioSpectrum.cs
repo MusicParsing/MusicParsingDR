@@ -8,23 +8,18 @@ public class AudioSpectrum : MonoBehaviour
 {
     #region Band type definition
     public enum BandType {
-        FourBand,
-        FourBandVisual,
-        EightBand,
-        TenBand,
-        TwentySixBand,
-        ThirtyOneBand
+        FourBand
     };
 
     static float[][] middleFrequenciesForBands = {
         //new float[]{ 125.0f, 500, 1000, 2000 },
         //new float[]{ 250.0f, 400, 600, 800 },
-		new float[]{ 60f, 80f, 125.0f, 200f },
-		new float[]{ 80f,240f ,24000000f, 32000000f},
-        new float[]{ 63.0f, 125, 500, 1000, 2000, 4000, 6000, 8000 },
-        new float[]{ 31.5f, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000 },
-        new float[]{ 25.0f, 31.5f, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000 },
-        new float[]{ 20.0f, 25, 31.5f, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000, 10000, 12500, 16000, 20000 },
+//		new float[]{ 60f, 80f, 125.0f, 200f },
+		new float[]{ 80f,240f ,24000000f, 32000000f}
+//        new float[]{ 63.0f, 125, 500, 1000, 2000, 4000, 6000, 8000 },
+//        new float[]{ 31.5f, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000 },
+//        new float[]{ 25.0f, 31.5f, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000 },
+//        new float[]{ 20.0f, 25, 31.5f, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000, 10000, 12500, 16000, 20000 },
     };
     static float[] bandwidthForBands = {
         1.414f, // 2^(1/2)
@@ -38,7 +33,7 @@ public class AudioSpectrum : MonoBehaviour
 
     #region Public variables
     public int numberOfSamples = 1024;
-    public BandType bandType = BandType.TenBand;
+    public BandType bandType = BandType.FourBand;
     public float fallSpeed = 0.08f; //inital value was 0.08f
     public float sensibility = 8.0f;
     #endregion
@@ -48,7 +43,7 @@ public class AudioSpectrum : MonoBehaviour
     float[] levels;
     float[] peakLevels;
     float[] meanLevels;
-	List<float> allpeaks = new List<float> ();
+	List<float> allPeaks = new List<float> ();
     #endregion
 
     #region Public property
@@ -119,8 +114,8 @@ public class AudioSpectrum : MonoBehaviour
             levels [bi] = bandMax;
 			
             peakLevels [bi] = Mathf.Max (peakLevels [bi] - falldown, bandMax);
-			allpeaks.Add(peakLevels[bi]);
-			Debug.Log(allpeaks.Count);
+			allPeaks.Add(peakLevels[bi]);
+			Debug.Log(allPeaks.Count);
             meanLevels [bi] = bandMax - (bandMax - meanLevels [bi]) * filter;
 			//t=t+23;
 			//file.WriteLine("Level:"+peakLevels[bi]+"\t Time:"+ t);
