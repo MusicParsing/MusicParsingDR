@@ -1,6 +1,4 @@
-﻿// Audio spectrum component
-// By Keijiro Takahashi, 2013
-// https://github.com/keijiro/unity-audio-spectrum
+﻿
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,18 +6,23 @@ public class AudioSpectrum : MonoBehaviour
 {
     #region Band type definition
     public enum BandType {
-        FourBand
+        FourBand,
+		FourBandVisual,
+		EightBand,
+		TenBand,
+		TwentySixBand,
+		ThirtyOneBand
     };
 
     static float[][] middleFrequenciesForBands = {
         //new float[]{ 125.0f, 500, 1000, 2000 },
         //new float[]{ 250.0f, 400, 600, 800 },
-//		new float[]{ 60f, 80f, 125.0f, 200f },
-		new float[]{ 80f,240f ,24000000f, 32000000f}
-//        new float[]{ 63.0f, 125, 500, 1000, 2000, 4000, 6000, 8000 },
-//        new float[]{ 31.5f, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000 },
-//        new float[]{ 25.0f, 31.5f, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000 },
-//        new float[]{ 20.0f, 25, 31.5f, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000, 10000, 12500, 16000, 20000 },
+		new float[]{ 60f, 80f, 125.0f, 200f },
+		new float[]{ 80f,240f ,24000000f, 32000000f},
+        new float[]{ 63.0f, 125, 500, 1000, 2000, 4000, 6000, 8000 },
+        new float[]{ 31.5f, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000 },
+        new float[]{ 25.0f, 31.5f, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000 },
+        new float[]{ 20.0f, 25, 31.5f, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000, 10000, 12500, 16000, 20000 },
     };
     static float[] bandwidthForBands = {
         1.414f, // 2^(1/2)
@@ -33,7 +36,7 @@ public class AudioSpectrum : MonoBehaviour
 
     #region Public variables
     public int numberOfSamples = 1024;
-    public BandType bandType = BandType.FourBand;
+    public BandType bandType = BandType.FourBandVisual;
     public float fallSpeed = 0.08f; //inital value was 0.08f
     public float sensibility = 8.0f;
     #endregion
@@ -45,6 +48,7 @@ public class AudioSpectrum : MonoBehaviour
     float[] meanLevels;
 
 	List<float> allPeaks = new List<float> ();
+	AudioSource audioSource;
 	
     #endregion
 
@@ -87,43 +91,50 @@ public class AudioSpectrum : MonoBehaviour
     void Awake ()
     {
         CheckBuffers ();
+		audioSource = GetComponent<AudioSource>();
     }
 
     void Update ()
     {
-        CheckBuffers ();
+		if (audioSource.isPlaying) 
+		{
+				CheckBuffers ();
+				audioSource.GetSpectrumData (rawSpectrum, 0, FFTWindow.BlackmanHarris);
+				//AudioListener.GetSpectrumData (rawSpectrum, 0, FFTWindow.BlackmanHarris);
 
-        AudioListener.GetSpectrumData (rawSpectrum, 0, FFTWindow.BlackmanHarris);
+				float[] middlefrequencies = middleFrequenciesForBands [(int)bandType];
+				var bandwidth = bandwidthForBands [(int)bandType];
 
-        float[] middlefrequencies = middleFrequenciesForBands [(int)bandType];
-        var bandwidth = bandwidthForBands [(int)bandType];
+				var falldown = fallSpeed * Time.deltaTime;
+				var filter = Mathf.Exp (-sensibility * Time.deltaTime);
 
-        var falldown = fallSpeed * Time.deltaTime;
-        var filter = Mathf.Exp (-sensibility * Time.deltaTime);
+				//var file=File.CreateText("C:\\Users\\pc\\Desktop\\log.txt");
+				//file.WriteLine("Peak Levels:");
+				//int t=0;
+				for (var bi = 0; bi < levels.Length; bi++) {
+					int imin = FrequencyToSpectrumIndex (middlefrequencies [bi] / bandwidth);
+					int imax = FrequencyToSpectrumIndex (middlefrequencies [bi] * bandwidth);
 
-		//var file=File.CreateText("C:\\Users\\pc\\Desktop\\log.txt");
-		//file.WriteLine("Peak Levels:");
-		int t=0;
-        for (var bi = 0; bi < levels.Length; bi++) {
-            int imin = FrequencyToSpectrumIndex (middlefrequencies [bi] / bandwidth);
-            int imax = FrequencyToSpectrumIndex (middlefrequencies [bi] * bandwidth);
+					var bandMax = 0.0f;
+					for (var fi = imin; fi <= imax; fi++) {
+						bandMax = Mathf.Max (bandMax, rawSpectrum [fi]);
+					}
 
-            var bandMax = 0.0f;
-            for (var fi = imin; fi <= imax; fi++) {
-                bandMax = Mathf.Max (bandMax, rawSpectrum [fi]);
-            }
-
-            levels [bi] = bandMax;
+					levels [bi] = bandMax;
+				
+					peakLevels [bi] = Mathf.Max (peakLevels [bi] - falldown, bandMax);
+					allPeaks.Add (peakLevels [bi]);
+					//Debug.Log (peakLevels [bi]);
+					Debug.Log (allPeaks.Count);
+					meanLevels [bi] = bandMax - (bandMax - meanLevels [bi]) * filter;
+					//t=t+23;
+					//file.WriteLine("Level:"+peakLevels[bi]+"\t Time:"+ t);
 			
-            peakLevels [bi] = Mathf.Max (peakLevels [bi] - falldown, bandMax);
-			allPeaks.Add(peakLevels[bi]);
-			Debug.Log(allPeaks.Count);
-            meanLevels [bi] = bandMax - (bandMax - meanLevels [bi]) * filter;
-			//t=t+23;
-			//file.WriteLine("Level:"+peakLevels[bi]+"\t Time:"+ t);
-			
-        }
+			}
+		}
 		//file.close();
     }
     #endregion
+
+
 }
