@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 public class AudioSpectrum : MonoBehaviour
 {
     #region Band type definition
@@ -64,6 +65,23 @@ public class AudioSpectrum : MonoBehaviour
     public float[] MeanLevels {
         get { return meanLevels; }
     }
+
+	public float[] PeakLevelsAt(int seconds){
+		float[] retVal = new float[4];
+		int index = (seconds * 1000 / 23) - 1;
+		if (index < allPeaks.Count) {
+			for (int i =0; i<4; i++) {
+				retVal [i] = allPeaks [index + i];
+			}
+			return retVal;
+		} else {
+			for(int i=0; i<4; i++) {
+				retVal [i] = -1; 
+			}
+			return retVal;
+		}
+	}
+
     #endregion
 
     #region Private functions
