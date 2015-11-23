@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class AudioSpectrum : MonoBehaviour
 {
@@ -50,6 +51,8 @@ public class AudioSpectrum : MonoBehaviour
 
 	List<float> allPeaks = new List<float> ();
 	AudioSource audioSource;
+	private StreamWriter writer;
+	int time=23;
 	
     #endregion
 
@@ -110,6 +113,7 @@ public class AudioSpectrum : MonoBehaviour
     {
         CheckBuffers ();
 		audioSource = GetComponent<AudioSource>();
+		writer=new StreamWriter("DebugLog.txt");
     }
 
     void Update ()
@@ -129,6 +133,7 @@ public class AudioSpectrum : MonoBehaviour
 				//var file=File.CreateText("C:\\Users\\pc\\Desktop\\log.txt");
 				//file.WriteLine("Peak Levels:");
 				//int t=0;
+				writer.WriteLine("TIME:"+time +"ms");
 				for (var bi = 0; bi < levels.Length; bi++) {
 					int imin = FrequencyToSpectrumIndex (middlefrequencies [bi] / bandwidth);
 					int imax = FrequencyToSpectrumIndex (middlefrequencies [bi] * bandwidth);
@@ -145,10 +150,12 @@ public class AudioSpectrum : MonoBehaviour
 					//Debug.Log (peakLevels [bi]);
 					Debug.Log (allPeaks.Count);
 					meanLevels [bi] = bandMax - (bandMax - meanLevels [bi]) * filter;
+					writer.WriteLine(peakLevels[bi]);
 					//t=t+23;
 					//file.WriteLine("Level:"+peakLevels[bi]+"\t Time:"+ t);
 			
-			}
+				}
+				time=time+23;
 		}
 		//file.close();
     }
