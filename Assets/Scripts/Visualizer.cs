@@ -13,18 +13,10 @@ public class Visualizer : MonoBehaviour
     {
         var spectrum = GetComponent<AudioSpectrum>();
 
-        if (barCount == spectrum.Levels.Length && !Input.GetMouseButtonDown(0)) {
+        if (barCount == spectrum.PeakLevels.Length ){
             return;
         }
 
-        // Change the bar type on mouse click.
-        if (Input.GetMouseButtonDown(0)) {
-            if (barType == SpectrumBar.BarType.MeanLevel) {
-                barType = SpectrumBar.BarType.Realtime;
-            } else {
-                barType++;
-            }
-        }
 
         // Destroy the old bars.
         foreach (var child in transform) {
@@ -32,7 +24,7 @@ public class Visualizer : MonoBehaviour
         }
 
         // Change the number of bars.
-        barCount = spectrum.Levels.Length;
+        barCount = spectrum.PeakLevels.Length;
         var barWidth = 6.0f / barCount;
         var barScale = new Vector3 (barWidth * 0.9f, 1, -0.75f);
 
@@ -54,7 +46,6 @@ public class Visualizer : MonoBehaviour
     void OnGUI ()
     {
         var text = "Current mode: " + barType + "\n";
-        text += "Click the screen to change the mode.";
         GUI.Label (new Rect(0, 0, Screen.width, Screen.height), text, labelStyle);
     }
 }

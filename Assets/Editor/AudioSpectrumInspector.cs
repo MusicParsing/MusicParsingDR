@@ -36,7 +36,7 @@ public class AudioSpectrumInspector : Editor
         curve = new AnimationCurve ();
 
         // Add keys for the each band.
-        var bands = spectrum.Levels;
+        var bands = spectrum.PeakLevels;
         for (var i = 0; i < bands.Length; i++) {
             curve.AddKey (1.0f / bands.Length * i, bands [i]);
         }
