@@ -1,6 +1,4 @@
-﻿// Audio spectrum component
-// By Keijiro Takahashi, 2013
-// https://github.com/keijiro/unity-audio-spectrum
+﻿
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
