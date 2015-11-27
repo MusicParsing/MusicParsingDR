@@ -11,13 +11,11 @@ public class AudioSpectrum : MonoBehaviour
         FourBand
     };
 
-    static float[][] middleFrequenciesForBands = {
-
-		new float[]{ 80f,240f ,24000000f, 32000000f} //have to get two other frequencies
-
-    };
+    public float[][] middleFrequenciesForBands = {
+		new float[]{ 80f,240f ,3000f, 32000000f} //have to get two other frequencies
+    				//kick drum, snare drum, hi hat
+	};
     static float[] bandwidthForBands = {
-
         1.260f
     };
     #endregion
