@@ -7,7 +7,7 @@ using System.Collections;
 public class AudioSpectrumInspector : Editor
 {
     #region Static definitions
-    static string[] sampleOptionStrings = {
+    /*static string[] sampleOptionStrings = {
         "256", "512", "1024", "2048", "4096"
     };
     static int[] sampleOptions = {
@@ -18,7 +18,7 @@ public class AudioSpectrumInspector : Editor
     };
     static int[] bandOptions = {
         (int)AudioSpectrum.BandType.FourBand
-    };
+    };*/
     #endregion
 
     #region Temporary state variables
