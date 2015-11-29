@@ -6,7 +6,7 @@ The game uses mainly two class files:
 1. Audio Spectrum Class : contains core logic of the game.
 2. Audio Spectrum Inspector : contains UI logic and slider descriptions.
 
-###**AUDIO SPECTRUM CLASS
+###**AUDIO SPECTRUM CLASS**
 This class has 2 API calls. The *PeakLevels* function and the *PeakLevelsAt* function. 
 
 ### API Funtions
@@ -32,7 +32,7 @@ This function initializes the arrays. Opens the file for logging and gets the au
 **void Update ()** :-
 This function is a standard function in any unity based game. It will parse 23ms of data and calculate the peaks. The peaks are written to file with a time stamp and are also stored in memory using the *allPeaks* array. To get data from the *allPeaks* array we can use the *PeakLevelsAt* function.  
 
-###**AUDIO SPECTRUM INSPECTOR CLASS
+###**AUDIO SPECTRUM INSPECTOR CLASS**
 This class has 2 internal functions.The *UpdateCurve* function and *OnInspectorGUI* function.
 
 ** void UpdateCurve ()** :-
