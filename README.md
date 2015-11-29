@@ -35,8 +35,8 @@ This function is a standard function in any unity based game. It will parse 23ms
 ###**AUDIO SPECTRUM INSPECTOR CLASS**
 This class has 2 internal functions.The *UpdateCurve* function and *OnInspectorGUI* function.
 
-** void UpdateCurve ()** :-
-This function creates a new curve to update the UI and add keys for each spectrum band.
+**void UpdateCurve ()** :-
+This function creates a new curve to update the UI and adds keys for each spectrum band.
  
 **public override void OnInspectorGUI ()** :-
 This function is a standard function for GUI in any unity based game.It ensures that the curve is updated only when music is playing.It also contains six slider components used to set four band frequencies,fall speed and sensibility. It ensures that the spectrum curve is displayed properly and updated frequently.
