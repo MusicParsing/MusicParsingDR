@@ -2,8 +2,12 @@
 ##Music parsing project 2015 fall
 *Contributors : Chuan Ren, Vibha Bhambhani, Lavanya Kumar, Vinayak Goyal*
 
+The game uses mainly two class files:
+1. Audio Spectrum Class : contains core logic of the game.
+2. Audio Spectrum Inspector : contains UI logic and slider descriptions.
 
-The main class that can be used in a game is the Audio spectrum class. This class has 2 API calls. The *PeakLevels* function and the *PeakLevelsAt* function. 
+###**AUDIO SPECTRUM CLASS
+This class has 2 API calls. The *PeakLevels* function and the *PeakLevelsAt* function. 
 
 ### API Funtions
 
@@ -27,3 +31,12 @@ This function initializes the arrays. Opens the file for logging and gets the au
 
 **void Update ()** :-
 This function is a standard function in any unity based game. It will parse 23ms of data and calculate the peaks. The peaks are written to file with a time stamp and are also stored in memory using the *allPeaks* array. To get data from the *allPeaks* array we can use the *PeakLevelsAt* function.  
+
+###**AUDIO SPECTRUM INSPECTOR CLASS
+This class has 2 internal functions.The *UpdateCurve* function and *OnInspectorGUI* function.
+
+** void UpdateCurve ()** :-
+This function creates a new curve to update the UI and add keys for each spectrum band.
+ 
+**public override void OnInspectorGUI ()** :-
+This function is a standard function for GUI in any unity based game.It ensures that the curve is updated only when music is playing.It also contains six slider components used to set four band frequencies,fall speed and sensibility. It ensures that the spectrum curve is displayed properly and updated frequently.
