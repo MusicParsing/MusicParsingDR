@@ -17,7 +17,6 @@ public class Visualizer : MonoBehaviour
             return;
         }
 
-
         // Destroy the old bars.
         foreach (var child in transform) {
             Destroy ((child as Transform).gameObject);
@@ -40,12 +39,6 @@ public class Visualizer : MonoBehaviour
             bar.transform.parent = transform;
             bar.transform.localScale = barScale;
         }
-		
-	}
-
-    void OnGUI ()
-    {
-        var text = "Current mode: " + barType + "\n";
-        GUI.Label (new Rect(0, 0, Screen.width, Screen.height), text, labelStyle);
+    	
     }
 }
