@@ -3,7 +3,7 @@
 *Contributors : Chuan Ren, Vibha Bhambhani, Lavanya Kumar, Vinayak Goyal*
 
 
-The main class that can be used in a game is the Audio spectrum class. This class has 2 API calls. The PeakLevels function and the PeakLevelsAt function. 
+The main class that can be used in a game is the Audio spectrum class. This class has 2 API calls. The *PeakLevels* function and the *PeakLevelsAt* function. 
 
 ### API Funtions
 
@@ -17,13 +17,13 @@ This function will return the peaks at a later or previous time given that the p
 ### Internal Funtions
 
 **void CheckBuffers ()** :- 
-This function will allocate space for the internal arrays peakLevels and rawSpectrum. peakLevels stores the current peaks and the rawSpectrum captures the audio spectrum data. It will open the file for logging the peaks with the time. It will also make sure that the size of the peak levels array matches the number of bands and the raw spectrum array matches the number of samples. Size of peak levels has been fixed to 4 and raw spectrum has been set to 1024 samples for the purpose of the game. 
+This function will allocate space for the internal arrays *peakLevels* and *rawSpectrum*. *peakLevels* stores the current peaks and the *rawSpectrum* captures the audio spectrum data. It will open the file for logging the peaks with the time. It will also make sure that the size of the peak levels array matches the number of bands and the raw spectrum array matches the number of samples. Size of peak levels has been fixed to 4 and raw spectrum has been set to 1024 samples for the purpose of the game. 
 
 **int FrequencyToSpectrumIndex (float f)** :-
-This function will convert the given frequency and will assign it into one of the bands. This will return the index at which we have to put the frequency peak in the peakLevels array. 
+This function will convert the given frequency and will assign it into one of the bands. This will return the index at which we have to put the frequency peak in the *peakLevels* array. 
 
 **void Awake ()** :- 
 This function initializes the arrays. Opens the file for logging and gets the audiosource so that we can start parsing the music. 
 
 **void Update ()** :-
-This function is a standard function in any unity based game. It will parse 23ms of data and calculate the peaks. The peaks are written to file with a time stamp and are also stored in memory using the allPeaks array. To get data from the allPeaks array we can use the PeakLevels or PeakLevelsAt functions.  
+This function is a standard function in any unity based game. It will parse 23ms of data and calculate the peaks. The peaks are written to file with a time stamp and are also stored in memory using the *allPeaks* array. To get data from the *allPeaks* array we can use the *PeakLevelsAt* function.  
