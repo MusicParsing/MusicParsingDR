@@ -41,7 +41,8 @@ public class AudioSpectrumInspector : Editor
 
         // Component properties.
   	spectrum.middleFrequenciesForBands [0] [0] = EditorGUILayout.Slider ("Low", spectrum.middleFrequenciesForBands[0][0], 20, 20000);
-	spectrum.middleFrequenciesForBands [0] [1] = EditorGUILayout.Slider ("Middle 1", spectrum.middleFrequenciesForBands[0][1], 20, 20000);		spectrum.middleFrequenciesForBands [0] [2] = EditorGUILayout.Slider ("Middle 2", spectrum.middleFrequenciesForBands[0][2], 20, 20000);
+	spectrum.middleFrequenciesForBands [0] [1] = EditorGUILayout.Slider ("Middle 1", spectrum.middleFrequenciesForBands[0][1], 20, 20000);		
+	spectrum.middleFrequenciesForBands [0] [2] = EditorGUILayout.Slider ("Middle 2", spectrum.middleFrequenciesForBands[0][2], 20, 20000);
 	spectrum.middleFrequenciesForBands [0] [3] = EditorGUILayout.Slider ("High", spectrum.middleFrequenciesForBands[0][3], 20, 20000);
 	spectrum.fallSpeed = EditorGUILayout.Slider ("Fall speed", spectrum.fallSpeed, 0.01f, 0.5f);
         spectrum.sensibility = EditorGUILayout.Slider ("Sensibility", spectrum.sensibility, 1.0f, 20.0f);
