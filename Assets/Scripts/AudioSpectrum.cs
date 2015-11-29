@@ -47,8 +47,7 @@ public class AudioSpectrum : MonoBehaviour
         get { return peakLevels; }
     }
     
-
-
+	 
 	public float[] PeakLevelsAt(int seconds){
 		float[] retVal = new float[4];
 		int index = (seconds * 1000 / 23) - 1;

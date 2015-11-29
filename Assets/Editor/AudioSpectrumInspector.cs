@@ -6,20 +6,6 @@ using System.Collections;
 [CustomEditor(typeof(AudioSpectrum))]
 public class AudioSpectrumInspector : Editor
 {
-    #region Static definitions
-    /*static string[] sampleOptionStrings = {
-        "256", "512", "1024", "2048", "4096"
-    };
-    static int[] sampleOptions = {
-        256, 512, 1024, 2048, 4096
-    };
-    static string[] bandOptionStrings = {
-        "4 band", "4 band (visual)", "8 band", "10 band (ISO standard)", "26 band", "31 band (FBQ3102)"
-    };
-    static int[] bandOptions = {
-        (int)AudioSpectrum.BandType.FourBand
-    };*/
-    #endregion
 
     #region Temporary state variables
     AnimationCurve curve;
@@ -54,8 +40,7 @@ public class AudioSpectrumInspector : Editor
         }
 
         // Component properties.
-        //spectrum.numberOfSamples = EditorGUILayout.IntPopup ("Number of samples", spectrum.numberOfSamples, sampleOptionStrings, sampleOptions);
-        //spectrum.bandType = (AudioSpectrum.BandType)EditorGUILayout.IntPopup ("Band type", (int)spectrum.bandType, bandOptionStrings, bandOptions);
+  
 		spectrum.middleFrequenciesForBands [0] [0] = EditorGUILayout.Slider ("Low", spectrum.middleFrequenciesForBands[0][0], 20, 20000);
 		spectrum.middleFrequenciesForBands [0] [1] = EditorGUILayout.Slider ("Middle 1", spectrum.middleFrequenciesForBands[0][1], 20, 20000);
 		spectrum.middleFrequenciesForBands [0] [2] = EditorGUILayout.Slider ("Middle 2", spectrum.middleFrequenciesForBands[0][2], 20, 20000);
