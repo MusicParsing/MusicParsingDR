@@ -24,7 +24,7 @@ public class AudioSpectrum : MonoBehaviour
     public int numberOfSamples = 1024;
     public BandType bandType = BandType.FourBand;
     public float fallSpeed = 0.08f; //inital value was 0.08f
-    public float sensibility = 8.0f;
+    //public float sensibility = 8.0f;
     #endregion
 
     #region Private variables
@@ -106,7 +106,7 @@ public class AudioSpectrum : MonoBehaviour
 				var bandwidth = bandwidthForBands [(int)bandType];
 
 				var falldown = fallSpeed * Time.deltaTime;
-				var filter = Mathf.Exp (-sensibility * Time.deltaTime);
+				//var filter = Mathf.Exp (-sensibility * Time.deltaTime);
 
 				writer.WriteLine("TIME:"+time +"ms");
 				for (var bi = 0; bi < peakLevels.Length; bi++) {
