@@ -49,10 +49,13 @@ Frequency of the first band having range 20Hz to 20000Hz(default:80 Hz).
 
 **Middle1**:
 Frequency of the second band having range 20Hz to 20000Hz(default:240 Hz).
+
 **Middle2**: 
 Frequency of the third band having range 20Hz to 20000Hz(default:3000 Hz).
+
 **High**: 
 Frequency of the fourth band having range 20Hz to 20000Hz(default:20000 Hz).
+
 **Fall Speed**: 
 Speed of the falling bars having range 0.01f to 0.5f(default:0.08f).
 
