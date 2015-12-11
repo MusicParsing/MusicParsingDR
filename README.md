@@ -43,8 +43,10 @@ This function is a standard function for GUI in any unity based game.It ensures 
 
 ###**UI PARAMETERS**
 The application provides 5 UI parameters, which includes 4 band frequencies and a fall speed.
-###**Low**: 
+
+**Low**: 
 Frequency of the first band having range 20Hz to 20000Hz(default:80 Hz).
+
 **Middle1**:
 Frequency of the second band having range 20Hz to 20000Hz(default:240 Hz).
 **Middle2**: 
